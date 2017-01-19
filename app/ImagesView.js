@@ -3,25 +3,42 @@ import {
   StyleSheet,
   Text,
   View,
-  Image
+  Image,
+  ScrollView
 } from 'react-native';
 
 export const ImagesView = (props) => {
   const images = props.images;
+  console.log("inside ImagesView, ", props.images);
   return (
-    <View style={{ flex: 1 }}>
-      {images && images.map((image, index) => <Image style={{ flex: 1 }} key={ index } source={{ uri: image}} /> )}
-    </View>
+      <View style={styles.container}>
+        <ScrollView horizontal >
+          <View style={styles.imageContainer} >
+            {images && images.map((image, index) => <Image style={styles.image} key={ index } source={{ uri: image.uri }} /> )}
+          </View>
+        </ScrollView>
+      </View>
+
   );
   
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
 
+    
+    backgroundColor: '#7EFCF0',
+  },
+  imageContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    align: 'center',
+
+
+  },
+  image: {
+    width: 360,
+    height: 500,
+    margin: 2,
+  },
 });

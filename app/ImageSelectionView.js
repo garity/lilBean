@@ -3,7 +3,6 @@ import {
   StyleSheet,
   Text,
   View,
-  ImagePickerIOS,
 } from 'react-native';
 import {ImagesView} from './ImagesView';
 

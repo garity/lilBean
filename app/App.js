@@ -3,10 +3,9 @@ import {
   StyleSheet,
   Text,
   View,
-  ImagePickerIOS,
-  Image
+  CameraRoll,
 } from 'react-native';
-import {ImageSelectionView} from './ImageSelectionView';
+import {ImagesView} from './ImagesView';
 
 export default class App extends Component {
   constructor() {
@@ -14,25 +13,33 @@ export default class App extends Component {
     this.state = {
  	  	images: [],
     };
-    this.pickImages = this.pickImages.bind(this);
+    this.storeImages = this.storeImages.bind(this);
   }
 
   componentDidMount() {
-    this.pickImages();
+  	const fetchParams = {
+  		first: 5,
+  	};
+    CameraRoll.getPhotos(fetchParams)
+    .then(images => {
+    	this.storeImages(images);
+    })
+    .catch(console.error);
   }
 
-  pickImages() {
-    // openSelectDialog(config, successCallback, errorCallback);
-    ImagePickerIOS.openSelectDialog({}, imageUri => {
-    	console.log("inside picker", imageUri);
-      	// this.setState({ images: [...this.state.images, imageUri] });
-    }, error => console.error(error));
+  storeImages(data) {
+  	const assets = data.edges;
+    const newImages = assets.map( asset => asset.node.image );
+    this.setState({
+        images: newImages,
+    });
   }
 
   render() {
+  	console.log("state inside render ", this.state);
     return (
       <View style={{ flex: 1 }}>
-        <ImageSelectionView images={this.state.images} />
+        <ImagesView images={this.state.images} />
       </View>
     );
   }
