@@ -1,24 +1,19 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   Text,
   View,
   ImagePickerIOS,
-  Image
 } from 'react-native';
-import App from './app/App';
+import {ImagesView} from './ImagesView';
 
-
-export default class lilBean extends Component {
-
-  render() {
-    return (
-      <View style={{ flex: 1 }}>
-        <App />
-      </View>
-    );
-  }
+export const ImageSelectionView = (props) => {
+  return (
+    <View style={{ flex: 1 }}>
+      <ImagesView images={props.images} />
+    </View>
+  );
+  
 }
 
 const styles = StyleSheet.create({
@@ -28,6 +23,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-});
 
-AppRegistry.registerComponent('lilBean', () => lilBean);
+});
