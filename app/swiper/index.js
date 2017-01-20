@@ -23,7 +23,7 @@ export default class Swiper extends Component {
 
   static defaultProps = {
     index: 0,
-    pager: true,
+    pager: false,
     threshold: 25,
     onPageChange: () => {},
     activeDotColor: 'blue',
@@ -89,6 +89,8 @@ export default class Swiper extends Component {
   goToPage(pageNumber) {
     // Don't scroll outside the bounds of the screens
     pageNumber = Math.max(0, Math.min(pageNumber, this.props.children.length - 1));
+    // if(pageNumber < 0) pageNumber = this.props.children.length - 1;
+    // if(pageNumber === this.props.children.length) pageNumber = 0;
     this.setState({
       index: pageNumber
     });
