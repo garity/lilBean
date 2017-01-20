@@ -6,7 +6,7 @@ import {
   Image,
   ScrollView
 } from 'react-native';
-import Swiper from 'react-native-page-swiper'
+import Swiper from './swiper';
 
 export const ImagesView = (props) => {
   const images = props.images;
@@ -31,17 +31,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#7EFCF0',
 
   },
-  // imageContainer: {
-  //   flex: 1,
-  //   flexDirection: 'row',
-  //   alignItems: 'center',
-  // },
   image: {
     flex: 1, 
     justifyContent: 'center',
     alignItems: 'center',
-    // width: 360,
-    // height: 500,
-    // margin: 2,
   },
 });
