@@ -27,17 +27,35 @@ export default class App extends Component {
   }
 
   componentWillMount() {
-    const fetchParams = {
-      first: 5,
-      // groupTypes: 'Album',
-      // groupName: 'lilBean'
-    };
-    CameraRoll.getPhotos(fetchParams)
-    .then(images => {
-      this.storeImages(images);
+    let albumNames = ['lilBean', 'LilBean', 'lilbean', 'Lilbean'];
+
+    function attemptGettingAlbumPhotos() {
+      let fetchParams = {
+        first: 20,
+        groupTypes: "Album"
+      };
+      if (albumNames.length) {
+        fetchParams.groupName = albumNames.shift();
+      } else {
+        fetchParams = { first: 20 };
+      }
+      return CameraRoll.getPhotos(fetchParams)
+      .then(data => {
+        if (data.edges.length) {
+          return Promise.resolve(data);
+        }
+        if (!fetchParams.groupName) {
+          return Promise.reject("No photos found!");
+        }
+        return attemptGettingAlbumPhotos();
+      });
+    }
+
+    var photoGetter = attemptGettingAlbumPhotos()
+    .then(data => {
+      this.storeImages(data);
       this.reorderImages();
-    })
-    .catch(console.error);
+    }).catch(console.error);
 
     const release = (e, gestureState) => {
       const relativeGestureDistance = gestureState.dx / this.state.viewWidth;
@@ -85,16 +103,25 @@ export default class App extends Component {
 
   reorderImages() {
     let images = this.state.images;
-    const index = this.state.index;
-    if (index > 0 && index < images.length-1) {
-      return;
+    let index = this.state.index;
+    let newImages = images.slice();
+    if (index === 0) {
+      index = index + 1;
+      newImages = images.slice(-1).concat(images.slice(0,-1));
+    } else if (index === images.length-1) {
+      index = index - 1;
+      newImages = images.slice(1).concat(images[0]);
     }
-    let newIndex = index === 0 ? index + 1 : index - 1
-    let newImages = index === 0 ? images.slice(-1).concat(images.slice(0,-1)) : images.slice(1).concat(images[0]);
+    newImages.forEach((image, i) => {
+      if (i !== index) {
+        image.opacity.setValue(1);
+        image.color = this.randomColor();
+      }
+    })
     this.setState({
       images: newImages,
-      index: newIndex,
-      scrollValue: new Animated.Value(newIndex)
+      index: index,
+      scrollValue: new Animated.Value(index)
     });
   }
 
@@ -109,7 +136,7 @@ export default class App extends Component {
       // tension: this.props.springTension 
     })
     .start(() => {
-      Animated.timing(this.state.images[pageNumber].opacity, {toValue: 0, duration: 2000 }).start();
+      Animated.timing(this.state.images[pageNumber].opacity, {toValue: 0, duration: 1500 }).start();
       this.reorderImages()
     });
   }
