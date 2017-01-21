@@ -89,45 +89,13 @@ export default class App extends Component {
       return;
     }
     let newIndex = index === 0 ? index + 1 : index - 1
-    let imagesNext = index === 0 ? [images[0]].concat(images) : images.concat(images.slice(-1));
-    let imagesFinal = index === 0 ? images.slice(-1).concat(images.slice(0,-1)) : images.slice(1).concat(images[0]);
+    let newImages = index === 0 ? images.slice(-1).concat(images.slice(0,-1)) : images.slice(1).concat(images[0]);
     this.setState({
-      images: imagesFinal,
+      images: newImages,
       index: newIndex,
       scrollValue: new Animated.Value(newIndex)
     });
   }
-
-  // reorderImagesOff() {
-  //   let newImageArr = this.state.images;
-  //   const index = this.state.index;
-  //   if(index === 0) {
-  //     const lastImg = newImageArr.pop();
-  //     this.setState({
-  //       images: [newImageArr[0]].concat(newImageArr),
-  //     });
-  //     requestAnimationFrame(() => {
-  //       this.setState({
-  //         index: index + 1,
-  //         scrollValue: new Animated.Value(index + 1)
-  //       });
-  //       requestAnimationFrame(() => {
-  //         this.setState({
-  //           images: [lastImg].concat(newImageArr)
-  //         });
-  //       });
-  //     });
-  //   }
-  //   if(index === this.state.images.length - 1) {
-  //     const firstImg = newImageArr.shift();
-  //     newImageArr = newImageArr.concat([firstImg]);
-  //     this.setState({
-  //       images: newImageArr,
-  //       index: index - 1,
-  //       scrollValue: new Animated.Value(index - 1)
-  //     });
-  //   }
-  // }
 
   goToPage(pageNumber) {
   // Don't scroll outside the bounds of the screens
