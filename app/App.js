@@ -35,6 +35,7 @@ export default class App extends Component {
     CameraRoll.getPhotos(fetchParams)
     .then(images => {
       this.storeImages(images);
+      this.reorderImages();
     })
     .catch(console.error);
 
@@ -104,10 +105,13 @@ export default class App extends Component {
 
     Animated.spring(this.state.scrollValue, { 
       toValue: pageNumber, 
-      friction: this.props.springFriction, 
-      tension: this.props.springTension 
+      // friction: this.props.springFriction, 
+      // tension: this.props.springTension 
     })
-    .start(() => this.reorderImages());
+    .start(() => {
+      Animated.timing(this.state.images[pageNumber].opacity, {toValue: 0, duration: 2000 }).start();
+      this.reorderImages()
+    });
   }
 
   handleLayout(event) {
@@ -118,9 +122,22 @@ export default class App extends Component {
     }
   }
 
+  randomColor() {
+    var r = Math.round(Math.random() * 255);
+    var g = Math.round(Math.random() * 255);
+    var b = Math.round(Math.random() * 255);
+    return 'rgb(' + [r,b,g].join(',') + ')';
+  }
+
   storeImages(data) {
   	const assets = data.edges;
-    const newImages = assets.map( asset => asset.node.image );
+    const newImages = assets.map( asset => {
+      var image = asset.node.image;
+      image.color = this.randomColor();
+      image.opacity = new Animated.Value(1);
+      return image;
+    });
+    Animated.timing(newImages[0].opacity, {toValue: 0, delay: 500, duration: 2000 }).start();
     this.setState({
         images: newImages,
     });

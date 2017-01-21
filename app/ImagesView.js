@@ -4,6 +4,7 @@ import {
   Text,
   View,
   Image,
+  Animated,
 } from 'react-native';
 
 export const ImagesView = (props) => {
@@ -13,8 +14,15 @@ export const ImagesView = (props) => {
     <View style={props.sceneContainerStyle} >
     {images.map((image, index) => {
       return (
-        <View key={ image.filename } style={styles.container} >  
+        <View key={ image.filename } style={styles.container} >
           <Image style={styles.image}  source={{ uri: image.uri }} /> 
+          <Animated.View style={{ 
+            backgroundColor: image.color,
+            opacity: image.opacity, 
+            width: 400, 
+            height: 700, 
+            position: 'absolute' 
+          }} />
         </View>
       )}
       )}
