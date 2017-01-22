@@ -19,8 +19,8 @@ export const ImagesView = (props) => {
           <Animated.View style={{ 
             backgroundColor: image.color,
             opacity: image.opacity, 
-            width: 400, 
-            height: 700, 
+            width: 375, 
+            height: 667, 
             position: 'absolute' 
           }} />
         </View>

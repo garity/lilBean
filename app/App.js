@@ -40,7 +40,9 @@ export default class App extends Component {
  	  	images: [],
       index: 0,
       scrollValue: new Animated.Value(0),
+      bounceValue: new Animated.Value(0),
       viewWidth: Dimensions.get('window').width,
+      viewHeight: Dimensions.get('window').height,
       threshold: 25,
     };
     this.storeImages = this.storeImages.bind(this);
@@ -50,6 +52,7 @@ export default class App extends Component {
   }
 
   componentWillMount() {
+    console.log("view size W X H", this.state.viewWidth, this.state.viewHeight);
     let albumNames = ['lilBean', 'LilBean', 'lilbean', 'Lilbean'];
 
     function attemptGettingAlbumPhotos() {
@@ -92,21 +95,25 @@ export default class App extends Component {
         newIndex = newIndex - 1;
       }
       this.goToPage(newIndex);
+      
+      Animated.spring(this.state.bounceValue, {toValue: 0})
+      .start();
     };
 
     this._panResponder = PanResponder.create({
       onMoveShouldSetPanResponder: (e, gestureState) => {
-        const { threshold } = this.state.threshold;
+        return true;
+        // const { threshold } = this.state.threshold;
 
-        // Claim responder if it's a horizontal pan
-        if (Math.abs(gestureState.dx) > Math.abs(gestureState.dy)) {
-          return true;
-        }
+        // // Claim responder if it's a horizontal pan
+        // if (Math.abs(gestureState.dx) > Math.abs(gestureState.dy)) {
+        //   return true;
+        // }
 
-        // and only if it exceeds the threshold
-        if (threshold - Math.abs(gestureState.dx) > 0) {
-          return false;
-        }
+        // // and only if it exceeds the threshold
+        // if (threshold - Math.abs(gestureState.dx) > 0) {
+        //   return false;
+        // }
 
       },
 
@@ -118,8 +125,9 @@ export default class App extends Component {
       onPanResponderMove: (e, gestureState) => {
         let dx = gestureState.dx;
         let offsetX = -dx / this.state.viewWidth + this.state.index;
-
+        let dy = gestureState.dy;
         this.state.scrollValue.setValue(offsetX);
+        this.state.bounceValue.setValue(dy);
       }
     });
   }
@@ -158,11 +166,7 @@ export default class App extends Component {
     pageNumber = Math.max(0, Math.min(pageNumber, this.state.images.length));
     this.setState({index: pageNumber})
 
-    Animated.spring(this.state.scrollValue, { 
-      toValue: pageNumber, 
-      // friction: this.props.springFriction, 
-      // tension: this.props.springTension 
-    })
+    Animated.spring(this.state.scrollValue, {toValue: pageNumber})
     .start(() => {
       Animated.timing(this.state.images[pageNumber].opacity, {toValue: 0, duration: 1500 }).start();
       this.reorderImages()
@@ -207,6 +211,7 @@ export default class App extends Component {
         handleLayout={this.handleLayout} 
         _panResponder={this._panResponder}
         scrollValue={this.state.scrollValue}
+        bounceValue={this.state.bounceValue}
         viewWidth={this.state.viewWidth}
 
         />

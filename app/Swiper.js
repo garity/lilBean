@@ -12,6 +12,8 @@ export const Swiper = (props) => {
     inputRange: [0, 1], outputRange: [0, -props.viewWidth]
   });
 
+  const translateY = props.bounceValue;
+
   const sceneContainerStyle = {
     width: props.viewWidth * props.images.length,
     flex: 1,
@@ -22,7 +24,7 @@ export const Swiper = (props) => {
     <View onLayout={ props.handleLayout} style={ { flex: 1, overflow: 'hidden' } }>
       <Animated.View
         {...props._panResponder.panHandlers}
-        style={ [sceneContainerStyle, { transform: [{ translateX }] }] }
+        style={ [sceneContainerStyle, { transform: [{ translateX }, { translateY }] }] }
       >
         <ImagesView images={props.images} sceneContainerStyle={sceneContainerStyle} />
       </Animated.View>
