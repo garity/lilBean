@@ -14,20 +14,20 @@ import {Swiper} from './Swiper';
 
 // these always error for some reason when they load
 // probably because they're mp3s
-const onSoundLoadError = () => {};
+const onSoundLoadError = (note) => (err) => {err && console.error(err, note)};
 const sounds = {
-  'a':  new Sound('a.mp3',  Sound.MAIN_BUNDLE, onSoundLoadError),
-  'a#':  new Sound('a#.mp3',  Sound.MAIN_BUNDLE, onSoundLoadError),
-  'b': new Sound('b.mp3', Sound.MAIN_BUNDLE, onSoundLoadError),
-  'c':  new Sound('c.mp3',  Sound.MAIN_BUNDLE, onSoundLoadError),
-  'c#': new Sound('c#.mp3', Sound.MAIN_BUNDLE, onSoundLoadError),
-  'd':  new Sound('d.mp3',  Sound.MAIN_BUNDLE, onSoundLoadError),
-  'e':  new Sound('e.mp3',  Sound.MAIN_BUNDLE, onSoundLoadError),
-  'e#': new Sound('e#.mp3', Sound.MAIN_BUNDLE, onSoundLoadError),
-  'f':  new Sound('f.mp3',  Sound.MAIN_BUNDLE, onSoundLoadError),
-  'f#': new Sound('f#.mp3', Sound.MAIN_BUNDLE, onSoundLoadError),
-  'g':  new Sound('g.mp3',  Sound.MAIN_BUNDLE, onSoundLoadError),
-  'g#': new Sound('g#.mp3', Sound.MAIN_BUNDLE, onSoundLoadError)
+  'a':  new Sound('a.wav',  Sound.MAIN_BUNDLE, onSoundLoadError('a')),
+  'a#':  new Sound('a#.wav',  Sound.MAIN_BUNDLE, onSoundLoadError('a#')),
+  'b': new Sound('b.wav', Sound.MAIN_BUNDLE, onSoundLoadError('b')),
+  'c':  new Sound('c.wav',  Sound.MAIN_BUNDLE, onSoundLoadError('c')),
+  'c#': new Sound('c#.wav', Sound.MAIN_BUNDLE, onSoundLoadError('c#')),
+  'd':  new Sound('d.wav',  Sound.MAIN_BUNDLE, onSoundLoadError('d')),
+  'e':  new Sound('e.wav',  Sound.MAIN_BUNDLE, onSoundLoadError('e')),
+  // 'e#': new Sound('e#.wav', Sound.MAIN_BUNDLE, onSoundLoadError('e#')),
+  'f':  new Sound('f.wav',  Sound.MAIN_BUNDLE, onSoundLoadError('f')),
+  'f#': new Sound('f#.wav', Sound.MAIN_BUNDLE, onSoundLoadError('f#')),
+  'g':  new Sound('g.wav',  Sound.MAIN_BUNDLE, onSoundLoadError('g')),
+  'g#': new Sound('g#.wav', Sound.MAIN_BUNDLE, onSoundLoadError('g#'))
 }
 
 let melody = ['c', 'd', 'e', 'g', 'a', 'b'];
@@ -167,7 +167,7 @@ export default class App extends Component {
   goToPage(pageNumber) {
   // Don't scroll outside the bounds of the screens
     let note = melody.sort(() => Math.random() - 0.5 )[0];
-    // console.log(note);
+    console.log(note);
     sounds[note].setCategory("Playback");
     sounds[note].stop();
     sounds[note].play();
