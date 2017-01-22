@@ -11,22 +11,27 @@ import {
 import Sound from 'react-native-sound';
 import {Swiper} from './Swiper';
 
+
+// these always error for some reason when they load
+// probably because they're mp3s
+const onSoundLoadError = () => {};
 const sounds = {
-  a:  new Sound('a.wav',  Sound.MAIN_BUNDLE, (err) => err && console.error(err)),
-  b:  new Sound('b.wav',  Sound.MAIN_BUNDLE, (err) => err && console.error(err)),
-  bb: new Sound('bb.wav', Sound.MAIN_BUNDLE, (err) => err && console.error(err)),
-  c:  new Sound('c.wav',  Sound.MAIN_BUNDLE, (err) => err && console.error(err)),
-  cb: new Sound('cb.wav', Sound.MAIN_BUNDLE, (err) => err && console.error(err)),
-  d:  new Sound('d.wav',  Sound.MAIN_BUNDLE, (err) => err && console.error(err)),
-  e:  new Sound('e.wav',  Sound.MAIN_BUNDLE, (err) => err && console.error(err)),
-  eb: new Sound('eb.wav', Sound.MAIN_BUNDLE, (err) => err && console.error(err)),
-  f:  new Sound('f.wav',  Sound.MAIN_BUNDLE, (err) => err && console.error(err)),
-  fb: new Sound('fb.wav', Sound.MAIN_BUNDLE, (err) => err && console.error(err)),
-  g:  new Sound('g.wav',  Sound.MAIN_BUNDLE, (err) => err && console.error(err)),
-  gb: new Sound('gb.wav', Sound.MAIN_BUNDLE, (err) => err && console.error(err))
+  'a':  new Sound('a.mp3',  Sound.MAIN_BUNDLE, onSoundLoadError),
+  'a#':  new Sound('a#.mp3',  Sound.MAIN_BUNDLE, onSoundLoadError),
+  'b': new Sound('b.mp3', Sound.MAIN_BUNDLE, onSoundLoadError),
+  'c':  new Sound('c.mp3',  Sound.MAIN_BUNDLE, onSoundLoadError),
+  'c#': new Sound('c#.mp3', Sound.MAIN_BUNDLE, onSoundLoadError),
+  'd':  new Sound('d.mp3',  Sound.MAIN_BUNDLE, onSoundLoadError),
+  'e':  new Sound('e.mp3',  Sound.MAIN_BUNDLE, onSoundLoadError),
+  'e#': new Sound('e#.mp3', Sound.MAIN_BUNDLE, onSoundLoadError),
+  'f':  new Sound('f.mp3',  Sound.MAIN_BUNDLE, onSoundLoadError),
+  'f#': new Sound('f#.mp3', Sound.MAIN_BUNDLE, onSoundLoadError),
+  'g':  new Sound('g.mp3',  Sound.MAIN_BUNDLE, onSoundLoadError),
+  'g#': new Sound('g#.mp3', Sound.MAIN_BUNDLE, onSoundLoadError)
 }
 
 let melody = ['c', 'd', 'e', 'g', 'a', 'b'];
+// let melody = ['e', 'g', 'a', 'b', 'a#', 'd'];
 
 export default class App extends Component {
   constructor() {
@@ -145,10 +150,11 @@ export default class App extends Component {
 
   goToPage(pageNumber) {
   // Don't scroll outside the bounds of the screens
-    let k = melody.sort(() => Math.random() - 0.5 )[0];
-    sounds[k].setCategory("Playback");
-    sounds[k].stop();
-    sounds[k].play();
+    let note = melody.sort(() => Math.random() - 0.5 )[0];
+    // console.log(note);
+    sounds[note].setCategory("Playback");
+    sounds[note].stop();
+    sounds[note].play();
     pageNumber = Math.max(0, Math.min(pageNumber, this.state.images.length));
     this.setState({index: pageNumber})
 
@@ -193,7 +199,7 @@ export default class App extends Component {
   }
 
   render() {
-  	console.log("state inside render ", this.state);
+  	// console.log("state inside render ", this.state);
     return (
       <View style={{ flex: 1 }}>
         <Swiper 
