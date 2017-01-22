@@ -9,7 +9,6 @@ import {
 
 export const ImagesView = (props) => {
   const images = props.images;
-  // console.log("inside ImagesView, ", props.images);
   return images && images.length > 0 ? 
     <View style={props.sceneContainerStyle} >
     {images.map((image, index) => {
@@ -32,7 +31,6 @@ export const ImagesView = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#7EFCF0',
     flex: 1,
   },
   image: {

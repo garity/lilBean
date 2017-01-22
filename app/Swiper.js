@@ -21,7 +21,7 @@ export const Swiper = (props) => {
   };
   
   return (
-    <View onLayout={ props.handleLayout} style={ { flex: 1, overflow: 'hidden' } }>
+    <View onLayout={ props.handleLayout} style={styles.container }>
       <Animated.View
         {...props._panResponder.panHandlers}
         style={ [sceneContainerStyle, { transform: [{ translateX }, { translateY }] }] }
@@ -34,7 +34,9 @@ export const Swiper = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#7EFCF0',
+    flex: 1,
+    backgroundColor: '#FCF151',
+    overflow: 'hidden'
 
   },
   image: {

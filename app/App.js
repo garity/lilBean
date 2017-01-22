@@ -43,7 +43,7 @@ export default class App extends Component {
       bounceValue: new Animated.Value(0),
       viewWidth: Dimensions.get('window').width,
       viewHeight: Dimensions.get('window').height,
-      threshold: 25,
+      threshold: 50,
     };
     this.storeImages = this.storeImages.bind(this);
     this.handleLayout = this.handleLayout.bind(this);
@@ -55,29 +55,37 @@ export default class App extends Component {
     console.log("view size W X H", this.state.viewWidth, this.state.viewHeight);
     let albumNames = ['lilBean', 'LilBean', 'lilbean', 'Lilbean'];
 
-    function attemptGettingAlbumPhotos() {
-      let fetchParams = {
-        first: 20,
-        groupTypes: "Album"
-      };
-      if (albumNames.length) {
-        fetchParams.groupName = albumNames.shift();
-      } else {
-        fetchParams = { first: 20 };
-      }
-      return CameraRoll.getPhotos(fetchParams)
-      .then(data => {
-        if (data.edges.length) {
-          return Promise.resolve(data);
-        }
-        if (!fetchParams.groupName) {
-          return Promise.reject("No photos found!");
-        }
-        return attemptGettingAlbumPhotos();
-      });
-    }
+    // function attemptGettingAlbumPhotos() {
+    //   let fetchParams = {
+    //     first: 20,
+    //     groupTypes: "Album"
+    //   };
+    //   if (albumNames.length) {
+    //     fetchParams.groupName = albumNames.shift();
+    //   } else {
+    //     console.log("could not find lilBean albums")
+    //     fetchParams = { first: 20 };
+    //   }
+    //   return CameraRoll.getPhotos(fetchParams)
+    //   .then(data => {
+    //     if (data.edges.length) {
+    //       console.log(data.edges);
+    //       return Promise.resolve(data);
+    //     }
+    //     if (!fetchParams.groupName) {
+    //       return Promise.reject("No photos found!");
+    //     }
+    //     return attemptGettingAlbumPhotos();
+    //   });
+    // }
 
-    var photoGetter = attemptGettingAlbumPhotos()
+    // var photoGetter = attemptGettingAlbumPhotos()
+    // .then(data => {
+    //   this.storeImages(data);
+    //   this.reorderImages();
+    // }).catch(console.error);
+
+    var photoGetter = CameraRoll.getPhotos({first: 20})
     .then(data => {
       this.storeImages(data);
       this.reorderImages();
@@ -102,8 +110,8 @@ export default class App extends Component {
 
     this._panResponder = PanResponder.create({
       onMoveShouldSetPanResponder: (e, gestureState) => {
-        return true;
-        // const { threshold } = this.state.threshold;
+        
+        const { threshold } = this.state.threshold;
 
         // // Claim responder if it's a horizontal pan
         // if (Math.abs(gestureState.dx) > Math.abs(gestureState.dy)) {
@@ -111,10 +119,10 @@ export default class App extends Component {
         // }
 
         // // and only if it exceeds the threshold
-        // if (threshold - Math.abs(gestureState.dx) > 0) {
-        //   return false;
-        // }
-
+        if (threshold - Math.abs(gestureState.dx) > 0) {
+          return false;
+        }
+        return true;
       },
 
       // Touch is released, scroll to the one that you're closest to
@@ -205,7 +213,7 @@ export default class App extends Component {
   render() {
   	// console.log("state inside render ", this.state);
     return (
-      <View style={{ flex: 1 }}>
+      <View style={styles.container}>
         <Swiper 
         images={this.state.images} 
         handleLayout={this.handleLayout} 
@@ -225,7 +233,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
   },
 
 });
