@@ -13,7 +13,6 @@ import {Swiper} from './Swiper';
 
 const sounds = {
   a:  new Sound('a.wav',  Sound.MAIN_BUNDLE, (err) => err && console.error(err)),
-  a2:  new Sound('a-louder.wav',  Sound.MAIN_BUNDLE, (err) => err && console.error(err)),
   b:  new Sound('b.wav',  Sound.MAIN_BUNDLE, (err) => err && console.error(err)),
   bb: new Sound('bb.wav', Sound.MAIN_BUNDLE, (err) => err && console.error(err)),
   c:  new Sound('c.wav',  Sound.MAIN_BUNDLE, (err) => err && console.error(err)),

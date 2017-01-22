@@ -24,6 +24,19 @@
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		FE2CBD111E34498900C29653 /* libRNSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FE2CBD101E34498400C29653 /* libRNSound.a */; };
+		FE2CBD1E1E344BD600C29653 /* a.wav in Resources */ = {isa = PBXBuildFile; fileRef = FE2CBD121E344BD500C29653 /* a.wav */; };
+		FE2CBD1F1E344BD600C29653 /* b.wav in Resources */ = {isa = PBXBuildFile; fileRef = FE2CBD131E344BD600C29653 /* b.wav */; };
+		FE2CBD201E344BD600C29653 /* bb.wav in Resources */ = {isa = PBXBuildFile; fileRef = FE2CBD141E344BD600C29653 /* bb.wav */; };
+		FE2CBD211E344BD600C29653 /* c.wav in Resources */ = {isa = PBXBuildFile; fileRef = FE2CBD151E344BD600C29653 /* c.wav */; };
+		FE2CBD221E344BD600C29653 /* cb.wav in Resources */ = {isa = PBXBuildFile; fileRef = FE2CBD161E344BD600C29653 /* cb.wav */; };
+		FE2CBD231E344BD600C29653 /* d.wav in Resources */ = {isa = PBXBuildFile; fileRef = FE2CBD171E344BD600C29653 /* d.wav */; };
+		FE2CBD241E344BD600C29653 /* e.wav in Resources */ = {isa = PBXBuildFile; fileRef = FE2CBD181E344BD600C29653 /* e.wav */; };
+		FE2CBD251E344BD600C29653 /* eb.wav in Resources */ = {isa = PBXBuildFile; fileRef = FE2CBD191E344BD600C29653 /* eb.wav */; };
+		FE2CBD261E344BD600C29653 /* f.wav in Resources */ = {isa = PBXBuildFile; fileRef = FE2CBD1A1E344BD600C29653 /* f.wav */; };
+		FE2CBD271E344BD600C29653 /* fb.wav in Resources */ = {isa = PBXBuildFile; fileRef = FE2CBD1B1E344BD600C29653 /* fb.wav */; };
+		FE2CBD281E344BD600C29653 /* g.wav in Resources */ = {isa = PBXBuildFile; fileRef = FE2CBD1C1E344BD600C29653 /* g.wav */; };
+		FE2CBD291E344BD600C29653 /* gb.wav in Resources */ = {isa = PBXBuildFile; fileRef = FE2CBD1D1E344BD600C29653 /* gb.wav */; };
 		FEAC9B901E305168003DDF16 /* libRCTCameraRoll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FEAC9B791E30512D003DDF16 /* libRCTCameraRoll.a */; };
 /* End PBXBuildFile section */
 
@@ -210,6 +223,13 @@
 			remoteGlobalIDString = 58B5119B1A9E6C1200147676;
 			remoteInfo = RCTText;
 		};
+		FE2CBD0F1E34498400C29653 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FE2CBD0B1E34498300C29653 /* RNSound.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 19825A1E1BD4A89800EE0337;
+			remoteInfo = RNSound;
+		};
 		FEAC9B781E30512D003DDF16 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = FEAC9B711E30512D003DDF16 /* RCTCameraRoll.xcodeproj */;
@@ -242,6 +262,19 @@
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		FE2CBD0B1E34498300C29653 /* RNSound.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNSound.xcodeproj; path = "../node_modules/react-native-sound/RNSound.xcodeproj"; sourceTree = "<group>"; };
+		FE2CBD121E344BD500C29653 /* a.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = a.wav; sourceTree = "<group>"; };
+		FE2CBD131E344BD600C29653 /* b.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = b.wav; sourceTree = "<group>"; };
+		FE2CBD141E344BD600C29653 /* bb.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bb.wav; sourceTree = "<group>"; };
+		FE2CBD151E344BD600C29653 /* c.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = c.wav; sourceTree = "<group>"; };
+		FE2CBD161E344BD600C29653 /* cb.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = cb.wav; sourceTree = "<group>"; };
+		FE2CBD171E344BD600C29653 /* d.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = d.wav; sourceTree = "<group>"; };
+		FE2CBD181E344BD600C29653 /* e.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = e.wav; sourceTree = "<group>"; };
+		FE2CBD191E344BD600C29653 /* eb.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = eb.wav; sourceTree = "<group>"; };
+		FE2CBD1A1E344BD600C29653 /* f.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = f.wav; sourceTree = "<group>"; };
+		FE2CBD1B1E344BD600C29653 /* fb.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = fb.wav; sourceTree = "<group>"; };
+		FE2CBD1C1E344BD600C29653 /* g.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = g.wav; sourceTree = "<group>"; };
+		FE2CBD1D1E344BD600C29653 /* gb.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = gb.wav; sourceTree = "<group>"; };
 		FEAC9B711E30512D003DDF16 /* RCTCameraRoll.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCameraRoll.xcodeproj; path = "../node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -258,6 +291,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE2CBD111E34498900C29653 /* libRNSound.a in Frameworks */,
 				FEAC9B901E305168003DDF16 /* libRCTCameraRoll.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
@@ -356,6 +390,18 @@
 		13B07FAE1A68108700A75B9A /* lilBean */ = {
 			isa = PBXGroup;
 			children = (
+				FE2CBD121E344BD500C29653 /* a.wav */,
+				FE2CBD131E344BD600C29653 /* b.wav */,
+				FE2CBD141E344BD600C29653 /* bb.wav */,
+				FE2CBD151E344BD600C29653 /* c.wav */,
+				FE2CBD161E344BD600C29653 /* cb.wav */,
+				FE2CBD171E344BD600C29653 /* d.wav */,
+				FE2CBD181E344BD600C29653 /* e.wav */,
+				FE2CBD191E344BD600C29653 /* eb.wav */,
+				FE2CBD1A1E344BD600C29653 /* f.wav */,
+				FE2CBD1B1E344BD600C29653 /* fb.wav */,
+				FE2CBD1C1E344BD600C29653 /* g.wav */,
+				FE2CBD1D1E344BD600C29653 /* gb.wav */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -403,6 +449,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				FE2CBD0B1E34498300C29653 /* RNSound.xcodeproj */,
 				FEAC9B711E30512D003DDF16 /* RCTCameraRoll.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -445,6 +492,14 @@
 			children = (
 				13B07F961A680F5B00A75B9A /* lilBean.app */,
 				00E356EE1AD99517003FC87E /* lilBeanTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FE2CBD0C1E34498300C29653 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FE2CBD101E34498400C29653 /* libRNSound.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -570,6 +625,10 @@
 				{
 					ProductGroup = 146834001AC3E56700842450 /* Products */;
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
+				},
+				{
+					ProductGroup = FE2CBD0C1E34498300C29653 /* Products */;
+					ProjectRef = FE2CBD0B1E34498300C29653 /* RNSound.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -756,6 +815,13 @@
 			remoteRef = 832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		FE2CBD101E34498400C29653 /* libRNSound.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNSound.a;
+			remoteRef = FE2CBD0F1E34498400C29653 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		FEAC9B791E30512D003DDF16 /* libRCTCameraRoll.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -777,8 +843,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE2CBD261E344BD600C29653 /* f.wav in Resources */,
+				FE2CBD241E344BD600C29653 /* e.wav in Resources */,
+				FE2CBD211E344BD600C29653 /* c.wav in Resources */,
+				FE2CBD201E344BD600C29653 /* bb.wav in Resources */,
+				FE2CBD221E344BD600C29653 /* cb.wav in Resources */,
+				FE2CBD291E344BD600C29653 /* gb.wav in Resources */,
+				FE2CBD1E1E344BD600C29653 /* a.wav in Resources */,
+				FE2CBD271E344BD600C29653 /* fb.wav in Resources */,
+				FE2CBD251E344BD600C29653 /* eb.wav in Resources */,
+				FE2CBD281E344BD600C29653 /* g.wav in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				FE2CBD231E344BD600C29653 /* d.wav in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				FE2CBD1F1E344BD600C29653 /* b.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
