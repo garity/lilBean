@@ -8,7 +8,26 @@ import {
   Dimensions,
   PanResponder
 } from 'react-native';
+import Sound from 'react-native-sound';
 import {Swiper} from './Swiper';
+
+const sounds = {
+  a:  new Sound('a.wav',  Sound.MAIN_BUNDLE, (err) => err && console.error(err)),
+  a2:  new Sound('a-louder.wav',  Sound.MAIN_BUNDLE, (err) => err && console.error(err)),
+  b:  new Sound('b.wav',  Sound.MAIN_BUNDLE, (err) => err && console.error(err)),
+  bb: new Sound('bb.wav', Sound.MAIN_BUNDLE, (err) => err && console.error(err)),
+  c:  new Sound('c.wav',  Sound.MAIN_BUNDLE, (err) => err && console.error(err)),
+  cb: new Sound('cb.wav', Sound.MAIN_BUNDLE, (err) => err && console.error(err)),
+  d:  new Sound('d.wav',  Sound.MAIN_BUNDLE, (err) => err && console.error(err)),
+  e:  new Sound('e.wav',  Sound.MAIN_BUNDLE, (err) => err && console.error(err)),
+  eb: new Sound('eb.wav', Sound.MAIN_BUNDLE, (err) => err && console.error(err)),
+  f:  new Sound('f.wav',  Sound.MAIN_BUNDLE, (err) => err && console.error(err)),
+  fb: new Sound('fb.wav', Sound.MAIN_BUNDLE, (err) => err && console.error(err)),
+  g:  new Sound('g.wav',  Sound.MAIN_BUNDLE, (err) => err && console.error(err)),
+  gb: new Sound('gb.wav', Sound.MAIN_BUNDLE, (err) => err && console.error(err))
+}
+
+let melody = ['c', 'd', 'e', 'g', 'a', 'b'];
 
 export default class App extends Component {
   constructor() {
@@ -127,6 +146,10 @@ export default class App extends Component {
 
   goToPage(pageNumber) {
   // Don't scroll outside the bounds of the screens
+    let k = melody.sort(() => Math.random() - 0.5 )[0];
+    sounds[k].setCategory("Playback");
+    sounds[k].stop();
+    sounds[k].play();
     pageNumber = Math.max(0, Math.min(pageNumber, this.state.images.length));
     this.setState({index: pageNumber})
 
