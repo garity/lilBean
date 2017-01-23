@@ -12,9 +12,10 @@ import Sound from 'react-native-sound';
 import {Swiper} from './Swiper';
 
 
-// these always error for some reason when they load
-// probably because they're mp3s
+// Sound error handler
 const onSoundLoadError = (note) => (err) => {err && console.error(err, note)};
+
+// piano sound files
 const sounds = {
   'a':  new Sound('a.wav',  Sound.MAIN_BUNDLE, onSoundLoadError('a')),
   'a#':  new Sound('a#.wav',  Sound.MAIN_BUNDLE, onSoundLoadError('a#')),
@@ -31,7 +32,7 @@ const sounds = {
 }
 
 let melody = ['c', 'd', 'e', 'g', 'a', 'b'];
-// let melody = ['e', 'g', 'a', 'b', 'a#', 'd'];
+
 
 export default class App extends Component {
   constructor() {
@@ -42,8 +43,12 @@ export default class App extends Component {
       scrollValue: new Animated.Value(0),
       bounceValue: new Animated.Value(0),
       viewWidth: Dimensions.get('window').width,
-      viewHeight: Dimensions.get('window').height,
       threshold: 50,
+      background: { 
+        val: new Animated.Value(0),
+        a: this.randomColor(),
+        b: this.randomColor(),
+      }
     };
     this.storeImages = this.storeImages.bind(this);
     this.handleLayout = this.handleLayout.bind(this);
@@ -52,44 +57,47 @@ export default class App extends Component {
   }
 
   componentWillMount() {
-    console.log("view size W X H", this.state.viewWidth, this.state.viewHeight);
+
     let albumNames = ['lilBean', 'LilBean', 'lilbean', 'Lilbean'];
 
-    // function attemptGettingAlbumPhotos() {
-    //   let fetchParams = {
-    //     first: 20,
-    //     groupTypes: "Album"
-    //   };
-    //   if (albumNames.length) {
-    //     fetchParams.groupName = albumNames.shift();
-    //   } else {
-    //     console.log("could not find lilBean albums")
-    //     fetchParams = { first: 20 };
-    //   }
-    //   return CameraRoll.getPhotos(fetchParams)
-    //   .then(data => {
-    //     if (data.edges.length) {
-    //       console.log(data.edges);
-    //       return Promise.resolve(data);
-    //     }
-    //     if (!fetchParams.groupName) {
-    //       return Promise.reject("No photos found!");
-    //     }
-    //     return attemptGettingAlbumPhotos();
-    //   });
-    // }
+    function attemptGettingAlbumPhotos() {
+      let fetchParams = {
+        first: 20,
+        groupTypes: "Album"
+      };
+      if (albumNames.length) {
+        fetchParams.groupName = albumNames.shift();
+        console.log("setting up fetchParams: ", fetchParams.groupName);
+      } else {
+        console.log("could not find lilBean albums")
+        fetchParams = { first: 20 };
+      }
+      return CameraRoll.getPhotos(fetchParams)
+      .then(data => {
+        if (data.edges.length) {
+          console.log("found images: ", data.edges);
+          return Promise.resolve(data);
+        }
+        if (!fetchParams.groupName) {
+          console.log("promise rejected");
+          return Promise.reject("No photos found!");
+        }
+        return attemptGettingAlbumPhotos();
+      });
+    }
 
-    // var photoGetter = attemptGettingAlbumPhotos()
+    var photoGetter = attemptGettingAlbumPhotos()
+    .then(data => {
+      console.log("data recieved will be stored: ", data);
+      this.storeImages(data);
+      this.reorderImages();
+    }).catch(console.error);
+
+    // var photoGetter = CameraRoll.getPhotos({first: 20})
     // .then(data => {
     //   this.storeImages(data);
     //   this.reorderImages();
     // }).catch(console.error);
-
-    var photoGetter = CameraRoll.getPhotos({first: 20})
-    .then(data => {
-      this.storeImages(data);
-      this.reorderImages();
-    }).catch(console.error);
 
     const release = (e, gestureState) => {
       const relativeGestureDistance = gestureState.dx / this.state.viewWidth;
@@ -112,12 +120,6 @@ export default class App extends Component {
       onMoveShouldSetPanResponder: (e, gestureState) => {
         
         const { threshold } = this.state.threshold;
-
-        // // Claim responder if it's a horizontal pan
-        // if (Math.abs(gestureState.dx) > Math.abs(gestureState.dy)) {
-        //   return true;
-        // }
-
         // // and only if it exceeds the threshold
         if (threshold - Math.abs(gestureState.dx) > 0) {
           return false;
@@ -138,8 +140,32 @@ export default class App extends Component {
         this.state.bounceValue.setValue(dy);
       }
     });
+
+    // animate background color
+    animateBG = () => {
+      this.state.background.a = this.state.background.b;
+      this.state.background.b = this.randomColor();
+      this.state.background.val.setValue(0);
+      Animated.timing(this.state.background.val, { to: 1, duration: 5000 }).start(animateBG);
+    }
   }
 
+  // grabs images from data and assigns a color with opacity to each
+  storeImages(data) {
+    const assets = data.edges;
+    const newImages = assets.map( asset => {
+      var image = asset.node.image;
+      image.color = this.randomColor();
+      image.opacity = new Animated.Value(1);
+      return image;
+    });
+    Animated.timing(newImages[0].opacity, {toValue: 0, delay: 500, duration: 2000 }).start();
+    this.setState({
+        images: newImages,
+    });
+  }
+
+  // reorders state.images array to make infinite photo carousel
   reorderImages() {
     let images = this.state.images;
     let index = this.state.index;
@@ -165,15 +191,17 @@ export default class App extends Component {
   }
 
   goToPage(pageNumber) {
-  // Don't scroll outside the bounds of the screens
+    // sound notes play
     let note = melody.sort(() => Math.random() - 0.5 )[0];
-    console.log(note);
     sounds[note].setCategory("Playback");
     sounds[note].stop();
     sounds[note].play();
+
+    // doesn't scroll past the number of views
     pageNumber = Math.max(0, Math.min(pageNumber, this.state.images.length));
     this.setState({index: pageNumber})
 
+    // animates scrolling to next image with color burst
     Animated.spring(this.state.scrollValue, {toValue: pageNumber})
     .start(() => {
       Animated.timing(this.state.images[pageNumber].opacity, {toValue: 0, duration: 1500 }).start();
@@ -183,35 +211,25 @@ export default class App extends Component {
 
   handleLayout(event) {
     const { width } = event.nativeEvent.layout;
-
     if (width) {
       this.setState({ viewWidth: width });
     }
   }
 
-  randomColor() {
-    var r = Math.round(Math.random() * 255);
-    var g = Math.round(Math.random() * 255);
-    var b = Math.round(Math.random() * 255);
-    return 'rgb(' + [r,b,g].join(',') + ')';
+  randomRGB() {
+    let r = Math.round(Math.random() * 255);
+    let g = Math.round(Math.random() * 255);
+    let b = Math.round(Math.random() * 255);
+    return { r, g, b };
   }
 
-  storeImages(data) {
-  	const assets = data.edges;
-    const newImages = assets.map( asset => {
-      var image = asset.node.image;
-      image.color = this.randomColor();
-      image.opacity = new Animated.Value(1);
-      return image;
-    });
-    Animated.timing(newImages[0].opacity, {toValue: 0, delay: 500, duration: 2000 }).start();
-    this.setState({
-        images: newImages,
-    });
+  randomColor(rgb) {
+    rgb = rgb || this.randomRGB();
+    return 'rgb(' + [rgb.r, rgb.g, rgb.b].join(',') + ')';
   }
+
 
   render() {
-  	// console.log("state inside render ", this.state);
     return (
       <View style={styles.container}>
         <Swiper 
@@ -221,7 +239,7 @@ export default class App extends Component {
         scrollValue={this.state.scrollValue}
         bounceValue={this.state.bounceValue}
         viewWidth={this.state.viewWidth}
-
+        background={this.state.background}
         />
       </View>
     );

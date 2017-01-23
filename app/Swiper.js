@@ -19,9 +19,15 @@ export const Swiper = (props) => {
     flex: 1,
     flexDirection: 'row',
   };
-  
+
+  // const backgroundColor = props.background.val.interpolate({
+  //   inputRange: [0, 1], outputRange: [props.background.a, props.background.b]
+  // });
+
+  const backgroundColor = props.background.a;
+
   return (
-    <View onLayout={ props.handleLayout} style={styles.container }>
+    <View onLayout={ props.handleLayout} style={{ flex: 1, backgroundColor: backgroundColor, overflow: 'hidden' }}>
       <Animated.View
         {...props._panResponder.panHandlers}
         style={ [sceneContainerStyle, { transform: [{ translateX }, { translateY }] }] }
